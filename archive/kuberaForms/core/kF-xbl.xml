@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (C) 2010 kuberam.ro - Claudius Teodorescu. All rights reserved.
+Released under LGPL License - http://gnu.org/licenses/lgpl.html.-->
+<xbl:xbl xmlns="http://www.w3.org/1999/xhtml" xmlns:xbl="http://www.w3.org/ns/xbl">
+	<xbl:binding id="body">
+		<xbl:implementation src="body.js"/>
+	</xbl:binding>
+	<xbl:binding id="xforms-model">
+		<xbl:implementation src="xforms-model.js"/>
+	</xbl:binding>	
+	<xbl:binding id="xforms-input">
+		<xbl:template>
+			<input type="text"/>
+		</xbl:template>
+		<xbl:implementation src="xforms-input.js"/>
+	</xbl:binding>
+	<xbl:binding id="xforms-output">
+		<xbl:template>
+			<output>This is output's value</output>
+		</xbl:template>
+		<xbl:implementation/>
+	</xbl:binding>
+</xbl:xbl>

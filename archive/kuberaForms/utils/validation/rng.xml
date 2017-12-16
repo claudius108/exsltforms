@@ -1,0 +1,1745 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rng:grammar xmlns:rng="http://relaxng.org/ns/structure/1.0" ns="http://www.w3.org/2002/xforms" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <rng:include href="http://www.w3.org/MarkUp/SCHEMA/xml-events-attribs-1.rng" ns="http://www.w3.org/2001/xml-events"/>
+    <rng:include href="http://www.w3.org/2001/XMLSchema.rng" ns="http://www.w3.org/2001/XMLSchema"/>
+
+	<!--structural elements-->
+    <rng:define name="Common.Attributes">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+			Attributes for _every_ element in XForms
+
+		</a:documentation>
+        <rng:optional>
+            <rng:attribute name="id">
+                <rng:data type="ID"/>
+            </rng:attribute>
+        </rng:optional>
+        <rng:attribute>
+            <rng:anyName/>
+            <rng:text/>
+        </rng:attribute>
+    </rng:define>
+    <rng:define name="Single.Node.Binding.Attributes">
+        <rng:optional>
+            <rng:attribute name="model">
+                <rng:data type="IDREF"/>
+            </rng:attribute>
+        </rng:optional>
+        <rng:optional>
+            <rng:attribute name="ref">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+        </rng:optional>
+        <rng:optional>
+            <rng:attribute name="bind">
+                <rng:data type="IDREF"/>
+            </rng:attribute>
+        </rng:optional>
+    </rng:define>
+    <rng:define name="Nodeset.Binding.Attributes">
+        <rng:optional>
+            <rng:attribute name="model">
+                <rng:data type="IDREF"/>
+            </rng:attribute>
+        </rng:optional>
+        <rng:optional>
+            <rng:attribute name="nodeset">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+        </rng:optional>
+        <rng:optional>
+            <rng:attribute name="bind">
+                <rng:data type="IDREF"/>
+            </rng:attribute>
+        </rng:optional>
+    </rng:define>
+    <rng:define name="Linking.Attributes">
+        <rng:optional>
+            <rng:attribute name="src">
+                <rng:data type="anyURI"/>
+            </rng:attribute>
+        </rng:optional>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="model"/>
+    </rng:start>
+    <rng:define name="model">
+        <rng:element name="model">
+            <rng:choice>
+                <rng:ref name="instance"/>
+                <rng:data type="schema"/>
+                <rng:ref name="submission"/>
+                <rng:ref name="bind"/>
+                <rng:ref name="Action"/>
+            </rng:choice>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="XML.Events"/>
+            <rng:optional>
+                <rng:attribute name="functions">
+                    <rng:ref name="QNameList"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="schema">
+                    <rng:ref name="anyURIList"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="version">
+                    <rng:ref name="versionList"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="instance"/>
+    </rng:start>
+    <rng:define name="instance">
+        <rng:element name="instance">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+			instance container.
+		</a:documentation>
+            <rng:optional>
+                <rng:element>
+                    <rng:anyName/>
+                    <rng:text/>
+                </rng:element>
+            </rng:optional>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Linking.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="resource">
+                    <rng:data type="anyURI"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="bind"/>
+    </rng:start>
+    <rng:define name="bind">
+        <rng:element name="bind">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+			Definition of bind container.
+		</a:documentation>
+            <rng:ref name="bind"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="nodeset">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="calculate">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="type">
+                    <rng:data type="QName"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="required">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="constraint">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="relevant">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="readonly">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="p3ptype">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="extension"/>
+    </rng:start>
+    <rng:define name="extension">
+        <rng:element name="extension">
+            <rng:element>
+                <rng:anyName/>
+                <rng:text/>
+            </rng:element>
+            <rng:ref name="Common.Attributes"/>
+        </rng:element>
+    </rng:define>
+
+	<!--
+User Interface form controls
+-->
+    <rng:define name="Core.Form.Controls">
+        <rng:choice>
+            <rng:ref name="input"/>
+            <rng:ref name="secret"/>
+            <rng:ref name="textarea"/>
+            <rng:ref name="output"/>
+            <rng:ref name="upload"/>
+            <rng:ref name="select1"/>
+            <rng:ref name="select"/>
+            <rng:ref name="range"/>
+            <rng:ref name="submit"/>
+            <rng:ref name="trigger"/>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="Container.Form.Controls">
+        <rng:choice>
+            <rng:ref name="group"/>
+            <rng:ref name="switch"/>
+            <rng:ref name="repeat"/>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="UI.Common.Attrs">
+        <rng:optional>
+            <rng:attribute name="appearance">
+                <rng:ref name="appearanceType"/>
+            </rng:attribute>
+        </rng:optional>
+    </rng:define>
+    <rng:define name="UI.Content">
+        <rng:optional>
+            <rng:choice>
+                <rng:ref name="output"/>
+				<!-- containing document language to add additional allowed content here -->
+            </rng:choice>
+        </rng:optional>
+    </rng:define>
+    <rng:define name="UI.Common">
+        <rng:zeroOrMore>
+            <rng:choice>
+                <rng:ref name="help"/>
+                <rng:ref name="hint"/>
+                <rng:ref name="alert"/>
+                <rng:ref name="Action"/>
+            </rng:choice>
+        </rng:zeroOrMore>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="label"/>
+    </rng:start>
+    <rng:define name="label">
+        <rng:element name="label">
+            <rng:ref name="UI.Content"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="hint"/>
+    </rng:start>
+    <rng:define name="hint">
+        <rng:element name="hint">
+            <rng:ref name="UI.Content"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="help"/>
+    </rng:start>
+    <rng:define name="help">
+        <rng:element name="help">
+            <rng:ref name="UI.Content"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="alert"/>
+    </rng:start>
+    <rng:define name="alert">
+        <rng:element name="alert">
+            <rng:ref name="UI.Content"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:define name="List.UI.Common">
+        <rng:choice>
+            <rng:ref name="item"/>
+            <rng:ref name="itemset"/>
+            <rng:ref name="choices"/>
+        </rng:choice>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="item"/>
+    </rng:start>
+    <rng:define name="item">
+        <rng:element name="item">
+            <rng:ref name="label"/>
+            <rng:ref name="value"/>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="itemset"/>
+    </rng:start>
+    <rng:define name="itemset">
+        <rng:element name="itemset">
+            <rng:ref name="label"/>
+            <rng:choice>
+                <rng:ref name="value"/>
+                <rng:ref name="copy"/>
+            </rng:choice>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Nodeset.Binding.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="choices"/>
+    </rng:start>
+    <rng:define name="choices">
+        <rng:element name="choices">
+            <rng:optional>
+                <rng:ref name="label"/>
+            </rng:optional>
+            <rng:choice>
+                <rng:ref name="choices"/>
+                <rng:ref name="item"/>
+                <rng:ref name="itemset"/>
+            </rng:choice>
+            <rng:ref name="Common.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="value"/>
+    </rng:start>
+    <rng:define name="value">
+        <rng:element name="value">
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:attribute name="value">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="copy"/>
+    </rng:start>
+    <rng:define name="copy">
+        <rng:element name="copy">
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+        </rng:element>
+    </rng:define>
+<!--
+	<xsd:element name="filename">
+		<xsd:complexType>
+			<xsd:attributeGroup ref="xforms:Common.Attributes"/>
+			<xsd:attributeGroup ref="xforms:Single.Node.Binding.Attributes"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="mediatype">
+		<xsd:complexType>
+			<xsd:attributeGroup ref="xforms:Common.Attributes"/>
+			<xsd:attributeGroup ref="xforms:Single.Node.Binding.Attributes"/>
+		</xsd:complexType>
+	</xsd:element>
+-->
+    <rng:define name="filename">
+        <rng:ref name="Common.Attributes"/>
+        <rng:ref name="Single.Node.Binding.Attributes"/>
+    </rng:define>
+    <rng:define name="mediatype">
+        <rng:ref name="Common.Attributes"/>
+        <rng:ref name="Single.Node.Binding.Attributes"/>
+    </rng:define>
+    <rng:define name="mediatypeWithValue">
+        <rng:ref name="mediatype"/>
+        <rng:optional>
+            <rng:attribute name="value">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+        </rng:optional>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="input"/>
+    </rng:start>
+    <rng:define name="input">
+        <rng:element name="input">
+            <rng:ref name="label"/>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="inputmode">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute xmlns:a0="http://relaxng.org/ns/compatibility/annotations/1.0" name="incremental" a0:defaultValue="false">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="secret"/>
+    </rng:start>
+    <rng:define name="secret">
+        <rng:element name="secret">
+            <rng:ref name="label"/>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="inputmode">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute xmlns:a1="http://relaxng.org/ns/compatibility/annotations/1.0" name="incremental" a1:defaultValue="false">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="textarea"/>
+    </rng:start>
+    <rng:define name="textarea">
+        <rng:element name="textarea">
+            <rng:ref name="label"/>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="inputmode">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute xmlns:a2="http://relaxng.org/ns/compatibility/annotations/1.0" name="incremental" a2:defaultValue="false">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="upload"/>
+    </rng:start>
+    <rng:define name="upload">
+        <rng:element name="upload">
+            <rng:ref name="label"/>
+				<!--
+				<xsd:element ref="xforms:filename" minOccurs="0"/>
+				<xsd:element ref="xforms:mediatype" minOccurs="0"/>
+				-->
+            <rng:optional>
+                <rng:element name="filename">
+                    <rng:ref name="filename"/>
+                </rng:element>
+            </rng:optional>
+            <rng:optional>
+                <rng:element name="mediatype">
+                    <rng:ref name="mediatype"/>
+                </rng:element>
+            </rng:optional>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute name="mediatype">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a3="http://relaxng.org/ns/compatibility/annotations/1.0" name="incremental" a3:defaultValue="false">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="select1"/>
+    </rng:start>
+    <rng:define name="select1">
+        <rng:element name="select1">
+            <rng:ref name="label"/>
+            <rng:oneOrMore>
+                <rng:ref name="List.UI.Common"/>
+            </rng:oneOrMore>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute xmlns:a4="http://relaxng.org/ns/compatibility/annotations/1.0" name="selection" a4:defaultValue="closed">
+                    <rng:choice>
+                        <rng:value>open</rng:value>
+                        <rng:value>closed</rng:value>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a5="http://relaxng.org/ns/compatibility/annotations/1.0" name="incremental" a5:defaultValue="true">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="select"/>
+    </rng:start>
+    <rng:define name="select">
+        <rng:element name="select">
+            <rng:ref name="label"/>
+            <rng:oneOrMore>
+                <rng:ref name="List.UI.Common"/>
+            </rng:oneOrMore>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute xmlns:a6="http://relaxng.org/ns/compatibility/annotations/1.0" name="selection" a6:defaultValue="closed">
+                    <rng:choice>
+                        <rng:value>open</rng:value>
+                        <rng:value>closed</rng:value>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a7="http://relaxng.org/ns/compatibility/annotations/1.0" name="incremental" a7:defaultValue="true">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="range"/>
+    </rng:start>
+    <rng:define name="range">
+        <rng:element name="range">
+            <rng:ref name="label"/>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute name="start">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="end">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="step">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a8="http://relaxng.org/ns/compatibility/annotations/1.0" name="incremental" a8:defaultValue="false">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="trigger"/>
+    </rng:start>
+    <rng:define name="trigger">
+        <rng:element name="trigger">
+            <rng:ref name="label"/>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="output"/>
+    </rng:start>
+    <rng:define name="output">
+        <rng:element name="output">
+            <rng:ref name="label"/>
+				<!--
+				<xsd:element ref="xforms:mediatype" minOccurs="0"/>
+				-->
+            <rng:optional>
+                <rng:element name="mediatype">
+                    <rng:ref name="mediatypeWithValue"/>
+                </rng:element>
+            </rng:optional>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="appearance">
+                    <rng:ref name="appearanceType"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="value">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="mediatype">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="submit"/>
+    </rng:start>
+    <rng:define name="submit">
+        <rng:element name="submit">
+            <rng:ref name="label"/>
+            <rng:zeroOrMore>
+                <rng:ref name="UI.Common"/>
+            </rng:zeroOrMore>
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="submission">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+        </rng:element>
+    </rng:define>
+
+	<!--
+Advanced User Interface
+-->
+    <rng:optional>
+        <rng:attribute name="repeat-nodeset">
+            <rng:ref name="XPathExpression"/>
+        </rng:attribute>
+    </rng:optional>
+    <rng:optional>
+        <rng:attribute name="repeat-model">
+            <rng:data type="IDREF"/>
+        </rng:attribute>
+    </rng:optional>
+    <rng:optional>
+        <rng:attribute name="repeat-bind">
+            <rng:data type="IDREF"/>
+        </rng:attribute>
+    </rng:optional>
+    <rng:optional>
+        <rng:attribute name="repeat-startindex">
+            <rng:data type="positiveInteger"/>
+        </rng:attribute>
+    </rng:optional>
+    <rng:optional>
+        <rng:attribute name="repeat-number">
+            <rng:data type="nonNegativeInteger"/>
+        </rng:attribute>
+    </rng:optional>
+    <rng:start combine="choice">
+        <rng:ref name="repeat"/>
+    </rng:start>
+    <rng:define name="repeat">
+        <rng:element name="repeat">
+            <rng:choice>
+                <rng:ref name="Core.Form.Controls"/>
+                <rng:ref name="Container.Form.Controls"/>
+                <rng:ref name="Action"/>
+						<!-- containing document language to add additional allowed content here -->
+            </rng:choice>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Nodeset.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+            <rng:optional>
+                <rng:attribute name="startindex">
+                    <rng:data type="positiveInteger"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="number">
+                    <rng:data type="nonNegativeInteger"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="group"/>
+    </rng:start>
+    <rng:define name="group">
+        <rng:element name="group">
+            <rng:optional>
+                <rng:ref name="label"/>
+            </rng:optional>
+            <rng:choice>
+                <rng:ref name="Core.Form.Controls"/>
+                <rng:ref name="Container.Form.Controls"/>
+                <rng:ref name="UI.Common"/>
+						<!-- containing document language to add additional allowed content here -->
+            </rng:choice>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="switch"/>
+    </rng:start>
+    <rng:define name="switch">
+        <rng:element name="switch">
+            <rng:element name="case">
+                <rng:optional>
+                    <rng:ref name="label"/>
+                </rng:optional>
+                <rng:choice>
+                    <rng:ref name="Core.Form.Controls"/>
+                    <rng:ref name="Container.Form.Controls"/>
+                    <rng:ref name="Action"/>
+									<!-- containing document language to add additional allowed content here -->
+                </rng:choice>
+                <rng:optional>
+                    <rng:attribute xmlns:a9="http://relaxng.org/ns/compatibility/annotations/1.0" name="selected" a9:defaultValue="false">
+                        <rng:data type="boolean"/>
+                    </rng:attribute>
+                </rng:optional>
+                <rng:ref name="Common.Attributes"/>
+            </rng:element>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:ref name="UI.Common.Attrs"/>
+        </rng:element>
+    </rng:define>
+
+	<!--
+XForms Actions
+-->
+    <rng:define name="XML.Events">
+        <rng:ref name="event"/>
+        <rng:ref name="observer"/>
+        <rng:ref name="target"/>
+        <rng:ref name="handler"/>
+        <rng:ref name="phase"/>
+        <rng:ref name="propagate"/>
+        <rng:ref name="defaultAction"/>
+    </rng:define>
+    <rng:define name="Common.Action.Attributes">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+
+			Attributes for _every_ action in XForms
+		</a:documentation>
+        <rng:optional>
+            <rng:attribute name="if">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+        </rng:optional>
+        <rng:optional>
+            <rng:attribute name="while">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+        </rng:optional>
+    </rng:define>
+    <rng:define name="Action">
+        <rng:zeroOrMore>
+            <rng:choice>
+                <rng:ref name="action"/>
+                <rng:ref name="setvalue"/>
+                <rng:ref name="insert"/>
+                <rng:ref name="delete"/>
+                <rng:ref name="setindex"/>
+                <rng:ref name="toggle"/>
+                <rng:ref name="setfocus"/>
+                <rng:ref name="dispatch"/>
+                <rng:ref name="rebuild"/>
+                <rng:ref name="recalculate"/>
+                <rng:ref name="revalidate"/>
+                <rng:ref name="refresh"/>
+                <rng:ref name="reset"/>
+                <rng:ref name="load"/>
+                <rng:ref name="send"/>
+                <rng:ref name="message"/>
+            </rng:choice>
+        </rng:zeroOrMore>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="action"/>
+    </rng:start>
+    <rng:define name="action">
+        <rng:element name="action">
+            <rng:ref name="Action"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="setvalue"/>
+    </rng:start>
+    <rng:define name="setvalue">
+        <rng:element name="setvalue">
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:attribute name="value">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="insert"/>
+    </rng:start>
+    <rng:define name="insert">
+        <rng:element name="insert">
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Nodeset.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="at">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="context">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="origin">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="position">
+                    <rng:choice>
+                        <rng:value>before</rng:value>
+                        <rng:value>after</rng:value>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="delete"/>
+    </rng:start>
+    <rng:define name="delete">
+        <rng:element name="delete">
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Nodeset.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="at">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="context">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="setindex"/>
+    </rng:start>
+    <rng:define name="setindex">
+        <rng:element name="setindex">
+            <rng:ref name="Common.Attributes"/>
+            <rng:attribute name="repeat">
+                <rng:data type="IDREF"/>
+            </rng:attribute>
+            <rng:attribute name="index">
+                <rng:ref name="XPathExpression"/>
+            </rng:attribute>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="toggle"/>
+    </rng:start>
+    <rng:define name="toggle">
+        <rng:element name="toggle">
+            <rng:element name="case">
+                <rng:ref name="ValueTemplate"/>
+            </rng:element>
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="case">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="setfocus"/>
+    </rng:start>
+    <rng:define name="setfocus">
+        <rng:element name="setfocus">
+            <rng:element name="control">
+                <rng:ref name="ValueTemplate"/>
+            </rng:element>
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="control">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="dispatch"/>
+    </rng:start>
+    <rng:define name="dispatch">
+        <rng:element name="dispatch">
+		
+		        <!-- Need to be able to say only zero or one of each child, but order independent.
+		             This gets as close as possible with schema. -->
+            <rng:choice>
+                <rng:element name="name">
+                    <rng:ref name="ValueTemplate"/>
+                </rng:element>
+                <rng:element name="targetid">
+                    <rng:ref name="ValueTemplate"/>
+                </rng:element>
+                <rng:element name="target">
+                    <rng:ref name="ValueTemplate"/>
+                </rng:element>
+                <rng:element name="delay">
+                    <rng:ref name="ValueTemplate"/>
+                </rng:element>
+            </rng:choice>
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="name">
+                    <rng:data type="NMTOKEN"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="targetid">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="target">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a10="http://relaxng.org/ns/compatibility/annotations/1.0" name="delay" a10:defaultValue="">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a11="http://relaxng.org/ns/compatibility/annotations/1.0" name="bubbles" a11:defaultValue="true">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a12="http://relaxng.org/ns/compatibility/annotations/1.0" name="cancelable" a12:defaultValue="true">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="rebuild"/>
+    </rng:start>
+    <rng:define name="rebuild">
+        <rng:element name="rebuild">
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="model">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="recalculate"/>
+    </rng:start>
+    <rng:define name="recalculate">
+        <rng:element name="recalculate">
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="model">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="revalidate"/>
+    </rng:start>
+    <rng:define name="revalidate">
+        <rng:element name="revalidate">
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="model">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="refresh"/>
+    </rng:start>
+    <rng:define name="refresh">
+        <rng:element name="refresh">
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="model">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="reset"/>
+    </rng:start>
+    <rng:define name="reset">
+        <rng:element name="reset">
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="model">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="load"/>
+    </rng:start>
+    <rng:define name="load">
+        <rng:element name="load">
+            <rng:element name="resource">
+                <rng:ref name="ValueTemplate"/>
+            </rng:element>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="resource">
+                    <rng:data type="anyURI"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a13="http://relaxng.org/ns/compatibility/annotations/1.0" name="show" a13:defaultValue="replace">
+                    <rng:choice>
+                        <rng:value>new</rng:value>
+                        <rng:value>replace</rng:value>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="send"/>
+    </rng:start>
+    <rng:define name="send">
+        <rng:element name="send">
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="submission">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="message"/>
+    </rng:start>
+    <rng:define name="message">
+        <rng:element name="message">
+            <rng:ref name="UI.Content"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:ref name="Single.Node.Binding.Attributes"/>
+            <rng:optional>
+                <rng:attribute xmlns:a14="http://relaxng.org/ns/compatibility/annotations/1.0" name="level" a14:defaultValue="modal">
+                    <rng:choice>
+                        <rng:ref name="QNameButNotNCNAME"/>
+                        <rng:choice>
+                            <rng:value>ephemeral</rng:value>
+                            <rng:value>modeless</rng:value>
+                            <rng:value>modal</rng:value>
+                        </rng:choice>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+            <rng:ref name="XML.Events"/>
+            <rng:ref name="Common.Action.Attributes"/>
+        </rng:element>
+    </rng:define>
+    <rng:start combine="choice">
+        <rng:ref name="submission"/>
+    </rng:start>
+    <rng:define name="submission">
+        <rng:element name="submission">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+			submit info container.
+		</a:documentation>
+		
+			
+			        <!-- There should only be zero or one resource, zero or one method, and zero or more header 
+			             We can't say exactly this, but we get as close as possible -->
+            <rng:zeroOrMore>
+                <rng:choice>
+                    <rng:element name="resource">
+                        <rng:ref name="ValueTemplate"/>
+                    </rng:element>
+                    <rng:element name="method">
+                        <rng:ref name="ValueTemplate"/>
+                    </rng:element>
+                    <rng:element name="header">
+        					
+        					        <!-- Both name and value+ are required, but order independent -->
+                        <rng:choice>
+                            <rng:element name="name">
+                                <rng:ref name="ValueTemplate"/>
+                            </rng:element>
+                            <rng:oneOrMore>
+                                <rng:element name="value">
+                                    <rng:ref name="ValueTemplate"/>
+                                </rng:element>
+                            </rng:oneOrMore>
+                            <rng:oneOrMore>
+                                <rng:element name="value">
+                                    <rng:ref name="ValueTemplate"/>
+                                </rng:element>
+                            </rng:oneOrMore>
+                            <rng:element name="name">
+                                <rng:ref name="ValueTemplate"/>
+                            </rng:element>
+                        </rng:choice>
+                        <rng:optional>
+                            <rng:attribute xmlns:a15="http://relaxng.org/ns/compatibility/annotations/1.0" name="combine" a15:defaultValue="append">
+                                <rng:choice>
+                                    <rng:value>append</rng:value>
+                                    <rng:value>prepend</rng:value>
+                                    <rng:value>replace</rng:value>
+                                </rng:choice>
+                            </rng:attribute>
+                        </rng:optional>
+                    </rng:element>
+                </rng:choice>
+            </rng:zeroOrMore>
+
+				<!-- As is the case everywhere else, action handlers are last -->
+            <rng:ref name="Action"/>
+            <rng:ref name="Common.Attributes"/>
+            <rng:optional>
+                <rng:attribute name="ref">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="bind">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+			
+			<!-- Either the resource attribute, action attribute, or resource child element is required -->
+            <rng:optional>
+                <rng:attribute name="resource">
+                    <rng:data type="anyURI"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="action">
+                    <rng:data type="anyURI"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a16="http://relaxng.org/ns/compatibility/annotations/1.0" name="mode" a16:defaultValue="asynchronous">
+                    <rng:choice>
+                        <rng:value>asynchronous</rng:value>
+                        <rng:value>synchronous</rng:value>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+
+			<!-- Either the method attribute or the method child element is required -->
+            <rng:optional>
+                <rng:attribute name="method">
+                    <rng:choice>
+                        <rng:ref name="QNameButNotNCNAME"/>
+                        <rng:data type="NCName"/>
+                        <rng:choice>
+                            <rng:value>post</rng:value>
+                            <rng:value>put</rng:value>
+                            <rng:value>get</rng:value>
+                            <rng:value>delete</rng:value>
+                            <rng:value>multipart-post</rng:value>
+                            <rng:value>form-data-post</rng:value>
+                            <rng:value>urlencoded-post</rng:value>
+                        </rng:choice>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+
+                        <!-- The defaults for these are false if serialization is 'none' and true otherwise -->
+            <rng:optional>
+                <rng:attribute name="validate">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="relevant">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+			
+			<!-- The default is based on the selected method, e.g. application/xml for the post method -->
+            <rng:optional>
+                <rng:attribute name="serialization">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a17="http://relaxng.org/ns/compatibility/annotations/1.0" name="version" a17:defaultValue="1.0">
+                    <rng:data type="NMTOKEN"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a18="http://relaxng.org/ns/compatibility/annotations/1.0" name="indent" a18:defaultValue="false">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a19="http://relaxng.org/ns/compatibility/annotations/1.0" name="mediatype" a19:defaultValue="application/xml">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a20="http://relaxng.org/ns/compatibility/annotations/1.0" name="encoding" a20:defaultValue="UTF-8">
+                    <rng:data type="string"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a21="http://relaxng.org/ns/compatibility/annotations/1.0" name="omit-xml-declaration" a21:defaultValue="false">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+			<!-- This is optional with no default because omitting the attribute behaves differently 
+			     than including it with any value -->
+            <rng:optional>
+                <rng:attribute name="standalone">
+                    <rng:data type="boolean"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a22="http://relaxng.org/ns/compatibility/annotations/1.0" name="cdata-section-elements" a22:defaultValue="">
+                    <rng:ref name="QNameList"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a23="http://relaxng.org/ns/compatibility/annotations/1.0" name="replace" a23:defaultValue="all">
+                    <rng:choice>
+                        <rng:ref name="QNameButNotNCNAME"/>
+                        <rng:choice>
+                            <rng:value>all</rng:value>
+                            <rng:value>instance</rng:value>
+                            <rng:value>text</rng:value>
+                            <rng:value>none</rng:value>
+                        </rng:choice>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+			
+			<!-- Default is not specified because the default is to replace the instance being submitted -->
+            <rng:optional>
+                <rng:attribute name="instance">
+                    <rng:data type="IDREF"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute xmlns:a24="http://relaxng.org/ns/compatibility/annotations/1.0" name="separator" a24:defaultValue="&amp;">
+                    <rng:choice>
+                        <rng:value>&amp;</rng:value>
+                        <rng:value>;</rng:value>
+                    </rng:choice>
+                </rng:attribute>
+            </rng:optional>
+			
+			<!-- Default is not specified because the defalut is to replace the whole instance indicated 
+			     by the instance attribute -->
+            <rng:optional>
+                <rng:attribute name="targetref">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+            <rng:optional>
+                <rng:attribute name="target">
+                    <rng:ref name="XPathExpression"/>
+                </rng:attribute>
+            </rng:optional>
+			
+			<!-- Default not specified because omitting the attribute behaves differently than
+			     including it with any value -->
+            <rng:optional>
+                <rng:attribute name="includenamespaceprefixes">
+                    <rng:list>
+                        <rng:choice>
+                            <rng:data type="NCName"/>
+                            <rng:choice>
+                                <rng:value>#default</rng:value>
+                            </rng:choice>
+                        </rng:choice>
+                    </rng:list>
+                </rng:attribute>
+            </rng:optional>
+        </rng:element>
+    </rng:define>
+
+        <!-- 
+Internal helper types 
+-->
+    <rng:define name="versionList">
+        <rng:list>
+            <rng:ref name="versionNumber"/>
+        </rng:list>
+    </rng:define>
+    <rng:define name="versionNumber">
+        <rng:data type="string">
+            <rng:param name="pattern">[1-9]\d*\.\d+</rng:param>
+        </rng:data>
+    </rng:define>
+    <rng:define name="XPathExpression">
+        <rng:data type="string"/>
+    </rng:define>
+    <rng:define name="QNameList">
+        <rng:list>
+            <rng:data type="QName"/>
+        </rng:list>
+    </rng:define>
+    <rng:define name="anyURIList">
+        <rng:list>
+            <rng:data type="anyURI"/>
+        </rng:list>
+    </rng:define>
+    <rng:define name="QNameButNotNCNAME">
+        <rng:data type="QName">
+            <rng:param name="pattern">[^:]+:[^:]+</rng:param>
+        </rng:data>
+    </rng:define>
+    <rng:define name="appearanceType">
+        <rng:choice>
+            <rng:ref name="QNameButNotNCNAME"/>
+            <rng:choice>
+                <rng:value>full</rng:value>
+                <rng:value>compact</rng:value>
+                <rng:value>minimal</rng:value>
+            </rng:choice>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ValueTemplate">
+        <rng:attribute name="value">
+            <rng:ref name="XPathExpression"/>
+        </rng:attribute>
+    </rng:define>
+
+        <!--
+New simpleTypes provided to form authors
+-->
+    <rng:define name="listItem">
+        <rng:data type="string">
+            <rng:param name="pattern">\S+</rng:param>
+        </rng:data>
+    </rng:define>
+    <rng:define name="listItems">
+        <rng:list>
+            <rng:ref name="listItem"/>
+        </rng:list>
+    </rng:define>
+    <rng:define name="dateTime">
+        <rng:choice>
+            <rng:data type="dateTime"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="time">
+        <rng:choice>
+            <rng:data type="time"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="date">
+        <rng:choice>
+            <rng:data type="date"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="gYearMonth">
+        <rng:choice>
+            <rng:data type="gYearMonth"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="gYear">
+        <rng:choice>
+            <rng:data type="gYear"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="gMonthDay">
+        <rng:choice>
+            <rng:data type="gMonthDay"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="gDay">
+        <rng:choice>
+            <rng:data type="gDay"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="gMonth">
+        <rng:choice>
+            <rng:data type="gMonth"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="string">
+        <rng:data type="string"/>
+    </rng:define>
+    <rng:define name="boolean">
+        <rng:choice>
+            <rng:data type="boolean"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="base64Binary">
+        <rng:choice>
+            <rng:data type="base64Binary"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="hexBinary">
+        <rng:choice>
+            <rng:data type="hexBinary"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="float">
+        <rng:choice>
+            <rng:data type="float"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="decimal">
+        <rng:choice>
+            <rng:data type="decimal"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="double">
+        <rng:choice>
+            <rng:data type="double"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="anyURI">
+        <rng:choice>
+            <rng:data type="anyURI"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="QName">
+        <rng:choice>
+            <rng:data type="QName"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="normalizedString">
+        <rng:choice>
+            <rng:data type="normalizedString"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="token">
+        <rng:choice>
+            <rng:data type="token"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="language">
+        <rng:choice>
+            <rng:data type="language"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="Name">
+        <rng:choice>
+            <rng:data type="Name"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="NCName">
+        <rng:choice>
+            <rng:data type="NCName"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="ID">
+        <rng:choice>
+            <rng:data type="ID"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="IDREF">
+        <rng:choice>
+            <rng:data type="IDREF"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="IDREFS">
+        <rng:choice>
+            <rng:data type="IDREFS"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="NMTOKEN">
+        <rng:choice>
+            <rng:data type="NMTOKEN"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="NMTOKENS">
+        <rng:choice>
+            <rng:data type="NMTOKENS"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="integer">
+        <rng:choice>
+            <rng:data type="integer"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="negativeInteger">
+        <rng:choice>
+            <rng:data type="negativeInteger"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="long">
+        <rng:choice>
+            <rng:data type="long"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="int">
+        <rng:choice>
+            <rng:data type="int"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="short">
+        <rng:choice>
+            <rng:data type="short"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="byte">
+        <rng:choice>
+            <rng:data type="byte"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="nonNegativeInteger">
+        <rng:choice>
+            <rng:data type="nonNegativeInteger"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="unsignedLong">
+        <rng:choice>
+            <rng:data type="unsignedLong"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="unsignedInt">
+        <rng:choice>
+            <rng:data type="unsignedInt"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="unsignedShort">
+        <rng:choice>
+            <rng:data type="unsignedShort"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="unsignedByte">
+        <rng:choice>
+            <rng:data type="unsignedByte"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="positiveInteger">
+        <rng:choice>
+            <rng:data type="positiveInteger"/>
+            <rng:data type="string">
+                <rng:param name="length">0</rng:param>
+            </rng:data>
+        </rng:choice>
+    </rng:define>
+    <rng:define name="dayTimeDuration">
+        <rng:data type="duration">
+            <rng:param name="pattern">([\-]?P([0-9]+D(T([0-9]+(H([0-9]+(M([0-9]+(\.[0-9]*)?S    |\.[0-9]+S)?|(\.[0-9]*)?S)|(\.[0-9]*)?S)?|M([0-9]+    (\.[0-9]*)?S|\.[0-9]+S)?|(\.[0-9]*)?S)|\.[0-9]+S))?    |T([0-9]+(H([0-9]+(M([0-9]+(\.[0-9]*)?S|\.[0-9]+S)?    |(\.[0-9]*)?S)|(\.[0-9]*)?S)?|M([0-9]+(\.[0-9]*)?S|\.[0-9]+S)?    |(\.[0-9]*)?S)|\.[0-9]+S)))?</rng:param>
+        </rng:data>
+    </rng:define>
+    <rng:define name="yearMonthDuration">
+        <rng:data type="duration">
+            <rng:param name="pattern">([\-]?P[0-9]+(Y([0-9]+M)?|M))?</rng:param>
+        </rng:data>
+    </rng:define>
+    <rng:define name="email">
+        <rng:data type="string">
+            <rng:param name="pattern">([A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*)?</rng:param>
+        </rng:data>
+    </rng:define>
+    <rng:define name="card-number">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+			
+			This type defines the basic lexical properties for a dataypte that can be used to represent
+			various ID numbers such as for debit and credit cards.
+			This type does not apply the Luhn checksum algorithm.
+			
+		</a:documentation>
+        <rng:data type="string">
+            <rng:param name="pattern">[0-9]*</rng:param>
+        </rng:data>
+    </rng:define>
+</rng:grammar>

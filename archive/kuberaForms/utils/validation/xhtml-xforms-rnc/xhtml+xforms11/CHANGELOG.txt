@@ -1,0 +1,7 @@
+January 13, 2010
+Published on W3C Forms mailing list.
+
+January 15, 2010
+id attribute now provided by xforms-11.rnc instead of this integration.
+Added script for converting RNC to RNG
+

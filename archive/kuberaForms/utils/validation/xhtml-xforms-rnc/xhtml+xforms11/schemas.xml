@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+    <typeId id="XHTML+XForms11" uri="klotz/xhtml+xforms11/xhtml+xforms.rnc"/>
+</locatingRules>
